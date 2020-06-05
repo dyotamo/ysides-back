@@ -1,0 +1,20 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+autopep8 = "*"
+rope = "*"
+
+[packages]
+flask = "*"
+peewee = "*"
+flask-login = "*"
+flask-wtf = "*"
+flask-breadcrumbs = "*"
+flask-restful = "*"
+jsonschema = "*"
+
+[requires]
+python_version = "3.6"

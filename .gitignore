@@ -1,0 +1,4 @@
+__pycache__
+.vscode
+vote_data.json
+sides.db

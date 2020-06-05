@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/lumen/bootstrap.min.css"
+        crossorigin="anonymous">
+
+    <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://kit.fontawesome.com/e0c6ae1811.js" crossorigin="anonymous"></script>
+    <title>sides</title>
+</head>
+
+<body class="container" style="padding: 20px;">
+    {% if current_user.is_authenticated %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            {%- for breadcrumb in breadcrumbs -%}
+            <li class="breadcrumb-item">
+                <a href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a>
+            </li>
+            {%- endfor -%}
+        </ol>
+    </nav>
+    {% endif %}
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flashes" style="margin-top: 10px;">
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% block container %}
+        {% endblock %}
+    </main>
+
+    <hr />
+
+    <footer>
+        {% if current_user.is_authenticated %}
+        <span>Bem-vindo, {{ current_user.email }} </span> |
+        <span><a href="{{ url_for('logout') }}">Logout</a></span>
+        {% endif %}
+    </footer>
+</body>
+
+</html>

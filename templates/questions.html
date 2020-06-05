@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<h4><a href="{{ url_for('new_question') }}">+ questão</a></h4>
+<table class="table table-borderless">
+    <thead>
+        <th></th>
+        <th>Questão</th>
+        <th>Opções</th>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+        <tr>
+            <td><img src="https://source.unsplash.com/collection/{{ question.id }}/100x100" class="rounded" /></td>
+            <td><a href="{{ url_for('question', question_id=question.id) }}"> {{ question.name }}</a></td>
+            <td>{{ question.options.count() }}</td>
+        </tr>
+        {% else %}
+        <span>Nenhuma questão introduzida ainda.</span>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
