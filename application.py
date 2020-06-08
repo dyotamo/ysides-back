@@ -11,7 +11,7 @@ from forms import LoginForm, QuestionForm, OptionForm
 from flask_login import LoginManager, login_user
 from models import Entity
 from utils import view_question_dlc
-from api import QuestionResource, VoteResource
+from api import QuestionListResource, VoteResource, QuestionDetailResource
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = 'secret-key'
@@ -129,7 +129,8 @@ def not_found(e):
 
 
 api = Api(application)
-api.add_resource(QuestionResource, '/api/questions')
+api.add_resource(QuestionListResource, '/api/questions')
+api.add_resource(QuestionDetailResource, '/api/questions/<int:question_id>')
 api.add_resource(VoteResource, '/api/vote')
 
 if __name__ == '__main__':

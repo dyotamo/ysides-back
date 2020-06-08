@@ -52,3 +52,7 @@ def get_option(option_id):
 
 def vote(imei, option):
     Vote.create(imei=imei, option=option)
+
+
+def get_questions():
+    return Question.select()

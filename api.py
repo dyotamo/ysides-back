@@ -5,12 +5,20 @@ from peewee import IntegrityError
 
 from models import Question
 from utils import VOTE_SCHEMA
-from services import vote, get_option
+from services import vote, get_option, get_questions, get_question
 
 
-class QuestionResource(Resource):
+class QuestionListResource(Resource):
     def get(self):
-        return [question.to_map() for question in Question.select()]
+        return [question.to_map() for question in get_questions]
+
+
+class QuestionDetailResource(Resource):
+    def get(self, question_id):
+        question = get_question(question_id)
+        if question is None:
+            abort(404)
+        return question.to_map()
 
 
 class VoteResource(Resource):
