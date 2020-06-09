@@ -86,7 +86,8 @@ def question(question_id):
 def new_question():
     form = QuestionForm()
     if form.validate_on_submit():
-        question = create_question(question=form.question.data)
+        question = create_question(
+            question=form.question.data, description=form.description.data)
         flash('Questão criada', 'success')
         return redirect(url_for('questions', id=question.id))
     return render_template('new_question.html', form=form)
@@ -134,4 +135,4 @@ api.add_resource(QuestionDetailResource, '/api/questions/<int:question_id>')
 api.add_resource(VoteResource, '/api/vote')
 
 if __name__ == '__main__':
-    application.run(debug=True)
+    application.run(debug=True, host='0.0.0.0')

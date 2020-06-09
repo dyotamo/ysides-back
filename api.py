@@ -10,7 +10,7 @@ from services import vote, get_option, get_questions, get_question
 
 class QuestionListResource(Resource):
     def get(self):
-        return [question.to_map() for question in get_questions]
+        return [question.to_map() for question in get_questions()]
 
 
 class QuestionDetailResource(Resource):
@@ -32,15 +32,16 @@ class VoteResource(Resource):
             if option is None:
                 return make_response('Option not found')
 
-            vote(imei=imei, option=option.id)
-            return "Sucesso."
+            print('Votando a questão={} com o valor={}, imei={}'.format(
+                option.question.name, option.name, imei))
+            return vote(imei=imei, option=option).to_map()
         except ValidationError as e:
             return make_response(e.message)
         except IntegrityError as e:
-            return make_response('You already voted')
+            return make_response('You already voted', status_code=401)
 
 
-def make_response(msg):
+def make_response(msg, status_code=404):
     resp = jsonify(dict(error=msg))
-    resp.status_code = 404
+    resp.status_code = status_code
     return resp

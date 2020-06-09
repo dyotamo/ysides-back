@@ -5,6 +5,10 @@
     {{ question.name }} <small>(<a href="{{ url_for('new_option', question_id=question.id) }}">+ opção</a>)</small>
 </h2>
 
+{% if question.description %}
+<blockquote>{{ question.description }}</blockquote>
+{% endif %}
+
 <hr />
 
 <div class="row">

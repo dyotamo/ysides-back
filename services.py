@@ -1,5 +1,6 @@
 from hashlib import md5
 from flask_login import current_user
+from peewee import IntegrityError
 
 from models import Entity, Question, Option, Vote
 
@@ -24,12 +25,12 @@ def get_user(user_id):
         pass
 
 
-def create_user(email, password):
-    Entity.create(email=email, password=generate_hash(password))
+def create_user(name, email, password):
+    Entity.create(name=name, email=email, password=generate_hash(password))
 
 
-def create_question(question):
-    return Question.create(name=question, entity=current_user.id)
+def create_question(question, description):
+    return Question.create(name=question, description=description, entity=current_user.id)
 
 
 def get_question(question_id):
@@ -51,8 +52,20 @@ def get_option(option_id):
 
 
 def vote(imei, option):
-    Vote.create(imei=imei, option=option)
+    if already_voted(imei=imei, option=option):
+        raise IntegrityError()
+
+    vote = Vote.create(imei=imei, option=option.id)
+    return vote.option.question
 
 
 def get_questions():
     return Question.select()
+
+
+def already_voted(imei, option):
+    for option in option.question.options:
+        for vote in option.votes:
+            if imei == vote.imei:
+                return True
+    return False

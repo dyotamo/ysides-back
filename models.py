@@ -5,6 +5,7 @@ db = SqliteDatabase('sides.db')
 
 
 class Entity(Model, UserMixin):
+    name = CharField()
     email = CharField(unique=True)
     password = CharField()
 
@@ -19,12 +20,15 @@ class Entity(Model, UserMixin):
 
 class Question(Model):
     name = CharField()
+    description = CharField(max_length=500)
     entity = ForeignKeyField(Entity, backref='questions')
 
-    def to_map(self):
+    def to_map(self, show_options=True):
         m = dict(self.__dict__['__data__'])
         m['entity'] = self.entity.to_map()
-        m['options'] = [option.to_map() for option in self.options]
+        m['options'] = [option.to_map()
+                        for option in self.options] if show_options else None
+
         return m
 
     class Meta:
@@ -59,4 +63,5 @@ if __name__ == "__main__":
     db.create_tables([Entity, Question, Option, Vote])
     from services import create_user
 
-    create_user('dyotamo@gmail.com', 'admin')
+    create_user(name='Dássone J. Yotamo',
+                email='dyotamo@gmail.com', password='admin')

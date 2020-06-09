@@ -12,6 +12,7 @@ class LoginForm(FlaskForm):
 
 class QuestionForm(FlaskForm):
     question = TextField('Pergunta', validators=[REQUIRED])
+    description = TextField('Descrição', validators=[])
 
 
 class OptionForm(FlaskForm):
