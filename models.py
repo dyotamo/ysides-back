@@ -1,7 +1,15 @@
+from os import environ
+
 from peewee import *
 from flask_login import UserMixin
+from dsnparse import parse_environ
 
-db = SqliteDatabase('sides.db')
+if(environ.get('DATABASE_URL')):
+    url = parse_environ('DATABASE_URL')
+    db = PostgresqlDatabase(url.paths[0], user=url.username, password=url.password,
+                            host=url.host, port=url.port)
+else:
+    db = SqliteDatabase('sides.db')
 
 
 class Entity(Model, UserMixin):
