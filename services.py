@@ -52,8 +52,10 @@ def get_option(option_id):
 
 
 def vote(imei, option):
-    if already_voted(imei=imei, option=option):
-        raise IntegrityError()
+    last_vote = already_voted(imei=imei, option=option)
+
+    if last_vote:
+        delete_vote(last_vote)
 
     vote = Vote.create(imei=imei, option=option.id)
     return vote.option.question
@@ -64,8 +66,18 @@ def get_questions():
 
 
 def already_voted(imei, option):
+    '''
+    Pega o voto, caso o IMEI já tenha votado na questão da opção
+    '''
     for option in option.question.options:
         for vote in option.votes:
             if imei == vote.imei:
-                return True
-    return False
+                return vote
+
+
+def delete_option(option):
+    option.delete_instance()
+
+
+def delete_vote(vote):
+    vote.delete_instance()

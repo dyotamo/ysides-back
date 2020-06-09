@@ -1,17 +1,18 @@
+from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
+from flask_restful import Api
 from flask import (Flask, render_template, flash,
                    redirect, url_for, abort, jsonify)
 from flask_login import (LoginManager, login_required,
                          login_user, logout_user, current_user,)
-from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
-from flask_restful import Api
 
-from services import (generate_hash, check_user, get_user,
-                      create_question, get_question, create_option, get_option,)
+
 from forms import LoginForm, QuestionForm, OptionForm
 from flask_login import LoginManager, login_user
 from models import Entity
 from utils import view_question_dlc
 from api import QuestionListResource, VoteResource, QuestionDetailResource
+from services import (generate_hash, check_user, get_user,
+                      create_question, get_question, create_option, get_option, delete_option,)
 
 application = Flask(__name__)
 application.config['SECRET_KEY'] = 'secret-key'
@@ -117,7 +118,7 @@ def remove_option(option_id):
     if option is None:
         return abort(404)
 
-    option.delete_instance()
+    delete_option(option)
     flash('Opção eliminada com sucesso', 'success')
     return redirect(url_for('question', question_id=option.question.id))
 

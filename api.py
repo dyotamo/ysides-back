@@ -32,8 +32,6 @@ class VoteResource(Resource):
             if option is None:
                 return make_response('Option not found')
 
-            print('Votando a questão={} com o valor={}, imei={}'.format(
-                option.question.name, option.name, imei))
             return vote(imei=imei, option=option).to_map()
         except ValidationError as e:
             return make_response(e.message)
