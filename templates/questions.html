@@ -6,6 +6,7 @@
     <thead>
         <th></th>
         <th>Questão</th>
+        <th>Categoria</th>
         <th>Opções</th>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
         <tr>
             <td><img src="https://source.unsplash.com/collection/{{ question.id }}/100x100" class="rounded" /></td>
             <td><a href="{{ url_for('question', question_id=question.id) }}"> {{ question.name }}</a></td>
+            <td>{{ question.category }}</td>
             <td>{{ question.options.count() }}</td>
         </tr>
         {% else %}

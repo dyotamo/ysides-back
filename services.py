@@ -29,8 +29,8 @@ def create_user(name, email, password):
     Entity.create(name=name, email=email, password=generate_hash(password))
 
 
-def create_question(question, description):
-    return Question.create(name=question, description=description, entity=current_user.id)
+def create_question(question, description, category):
+    return Question.create(name=question, description=description, category=category, entity=current_user.id)
 
 
 def get_question(question_id):

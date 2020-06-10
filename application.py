@@ -88,7 +88,7 @@ def new_question():
     form = QuestionForm()
     if form.validate_on_submit():
         question = create_question(
-            question=form.question.data, description=form.description.data)
+            question=form.question.data, description=form.description.data, category=form.category.data)
         flash('Questão criada', 'success')
         return redirect(url_for('questions', id=question.id))
     return render_template('new_question.html', form=form)

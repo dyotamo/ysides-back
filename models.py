@@ -29,6 +29,7 @@ class Entity(Model, UserMixin):
 class Question(Model):
     name = CharField()
     description = CharField(max_length=500)
+    category = CharField()
     entity = ForeignKeyField(Entity, backref='questions')
 
     def to_map(self, show_options=True):
