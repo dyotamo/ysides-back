@@ -56,7 +56,7 @@
 
     <footer>
         {% if current_user.is_authenticated %}
-        <span>Bem-vindo, {{ current_user.email }} </span> |
+        <span>Bem-vindo, {{ current_user.name }} </span> |
         <span><a href="{{ url_for('logout') }}">Logout</a></span>
         {% endif %}
     </footer>
