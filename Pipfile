@@ -18,6 +18,7 @@ jsonschema = "*"
 dsnparse = "*"
 psycopg2 = "*"
 gunicorn = "*"
+flask-minify = "*"
 
 [requires]
 python_version = "3.6"

@@ -3,8 +3,12 @@ from wtforms import TextField, PasswordField, SelectField, TextAreaField
 from wtforms.validators import DataRequired
 
 _REQUIRED = DataRequired(message="Este campo é obrigatório.")
-_CATEGORIES = [('COVID-19', 'COVID-19'), ('Outros', 'Outros'), ('Educação', 'Educação'), ('Saúde',
-                                                                                          'Saúde'), ('Política', 'Política'), ('Sociedade', 'Sociedade'), ('Tecnologias', 'Tecnologias')]
+_CATEGORIES = [('COVID-19', 'COVID-19'),
+               ('Outros', 'Outros'), ('Educação', 'Educação'),
+               ('Saúde', 'Saúde'),
+               ('Política', 'Política'),
+               ('Sociedade', 'Sociedade'),
+               ('Tecnologias', 'Tecnologias')]
 
 
 class LoginForm(FlaskForm):

@@ -1,6 +1,7 @@
 from hashlib import md5
 from flask_login import current_user
 from peewee import IntegrityError
+from flask import abort
 
 from models import Entity, Question, Option, Vote
 
@@ -81,3 +82,8 @@ def delete_option(option):
 
 def delete_vote(vote):
     vote.delete_instance()
+
+
+def check_object(obj):
+    if obj is None:
+        return abort(404)

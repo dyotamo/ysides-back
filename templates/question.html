@@ -12,9 +12,9 @@
 <hr />
 
 <div class="row">
-    <div class="col">
-        <img src="https://source.unsplash.com/collection/{{ question.id }}/400x400" class="rounded" />
-    </div>
+    <!-- <div class="col">
+        <img src="https://source.unsplash.com/collection/{{ question.id }}/250x250" class="rounded" />
+    </div> -->
     <div class="col">
         <table class="table table-borderless table-hover">
             <thead>
@@ -64,5 +64,30 @@
             {% endfor %}
         </table>
     </div>
+    {% if question.options %}
+    <div class="row">
+        <div id="myChart"></div>
+    </div>
+    {% endif %}
 </div>
+
+<script>
+    let options = [];
+    let votes = [];
+
+    {% for option in question.options %}
+    options.push('{{ option.name }}');
+    votes.push({{ option.votes.count() }});
+    {% endfor %}
+
+    var data = [
+        {
+            x: options,
+            y: votes,
+            type: 'bar',
+        }
+    ];
+
+    Plotly.newPlot('myChart', data, { staticPlot: true, responsive: true });
+</script>
 {% endblock %}
