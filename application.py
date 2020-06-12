@@ -1,3 +1,5 @@
+from os import environ
+
 from flask_breadcrumbs import Breadcrumbs, register_breadcrumb
 from flask_restful import Api
 from flask_minify import minify
@@ -15,7 +17,7 @@ from services import (check_user, get_user, create_question, get_question,
                       create_option, get_option, delete_option, check_object)
 
 application = Flask(__name__)
-application.config['SECRET_KEY'] = 'secret-key'
+application.config['SECRET_KEY'] = environ.get('SECRET_KEY') or 'secret-key'
 
 login_manager = LoginManager()
 login_manager.init_app(application)
