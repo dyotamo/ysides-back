@@ -20,7 +20,6 @@
             <thead>
                 <th>Nº</th>
                 <th>Opção</th>
-                <th>Votos</th>
                 <th></th>
             </thead>
             <tbody>
@@ -28,7 +27,6 @@
                 <tr>
                     <td>{{ loop.index }}</td>
                     <td>{{ option.name }}</td>
-                    <td>{{ option.votes.count() }}</td>
                     <td>
                         <button type="button" class="btn btn-danger" data-toggle="modal"
                             data-target="#modal{{loop.index}}">
