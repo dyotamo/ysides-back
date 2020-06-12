@@ -31,30 +31,32 @@
                         <button type="button" class="btn btn-danger" data-toggle="modal"
                             data-target="#modal{{loop.index}}">
                             <i class="fas fa-trash-alt"></i></button>
-                    </td>
 
-                    <div class="modal fade" id="modal{{loop.index}}" tabindex="-1" role="dialog"
-                        aria-labelledby="modalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabel">Eliminar?</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    Tem a certeza que pretende eliminar esta opção?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                                    <form action="{{ url_for('remove_option', option_id=option.id) }}" method="post">
-                                        <button type="submit" class="btn btn-danger">Sim</button>
-                                    </form>
+                        <div class="modal fade" id="modal{{loop.index}}" tabindex="-1" role="dialog"
+                            aria-labelledby="modalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel">Eliminar?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Tem a certeza que pretende eliminar esta opção?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Não</button>
+                                        <form action="{{ url_for('remove_option', option_id=option.id) }}"
+                                            method="post">
+                                            <button type="submit" class="btn btn-danger">Sim</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </td>
                 </tr>
             </tbody>
             {% else %}

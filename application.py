@@ -17,7 +17,7 @@ from services import (check_user, get_user, create_question, get_question,
                       create_option, get_option, delete_option, check_object)
 
 application = Flask(__name__)
-application.config['SECRET_KEY'] = environ.get('SECRET_KEY') or 'secret-key'
+application.config['SECRET_KEY'] = environ.get('SECRET_KEY', 'secret-key')
 
 login_manager = LoginManager()
 login_manager.init_app(application)
@@ -28,8 +28,9 @@ login_manager.login_message_category = "warning"
 breadcrumbs = Breadcrumbs()
 breadcrumbs.init_app(application)
 
-mini = minify(html=True, js=True, cssless=True)
-mini.init_app(application)
+if bool(environ.get('PRODUCTION')):
+    mini = minify(html=True, js=True, cssless=True)
+    mini.init_app(application)
 
 
 @login_manager.user_loader
